@@ -13,30 +13,34 @@ class LoginCode extends FedViewCode {
   String? email;
   String? password;
 
-  bool checkLogin() {
+  String? errorMessage = '';
+
+  Future<bool> checkLogin() async {
     if (email == null || password == null) return false;
 
     debugPrint('email: $email');
     debugPrint('password: $password');
 
-    Authentication().loginWithPassword(email: email!, password: password!);
+    await Authentication().loginWithPassword(email: email!, password: password!);
     return Authentication().isLogined;
   }
 
-
-  void onNext(BuildContext context) {
+  void onNext(BuildContext context) async {
     debugPrint('Login OnNext Press');
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Saving ...'), duration: Duration(milliseconds: 300)),
+        const SnackBar(content: Text('Checking ...'), duration: Duration(milliseconds: 300)),
       );
 
-      if (checkLogin()) {
+      if (await checkLogin()) {
+        print ('Login succeeded!');
         Root.loadPage('/');
       } else {
-        return;
+        print ('Login failed!');
+        errorMessage = 'Invalid username/password';
+        refreshView();
       }
     }
   }

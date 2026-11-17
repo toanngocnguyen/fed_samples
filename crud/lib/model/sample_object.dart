@@ -7,15 +7,15 @@ class SampleObject extends FedObject {
   String? tags;
 
   SampleObject({
-    FedObjectHelper? helper,
+    FedObjectHelper? myHelper,
     super.id,
     this.title,
     this.content,
     this.tags,
-  }) : super(helper: helper ?? SampleObject.helper);
+  }) : super(myHelper: myHelper ?? SampleObject.gHelper);
 
-  static FedObjectHelper<SampleObject> helper = FedObjectHelper.makeHelper(
-    createNew: (FedObjectHelper helper) => SampleObject(helper: helper),
+  static FedObjectHelper<SampleObject> gHelper = FedObjectHelper.makeHelper(
+    createNew: (FedObjectHelper helper) => SampleObject(myHelper: helper),
     tableName: 'sample_object',
     dbManager: DBManager.defaultDb,
   );
@@ -23,10 +23,10 @@ class SampleObject extends FedObject {
   @override
   Map<String, dynamic> toMap({Set<String>? included, Set<String>? excluded}) {
     return {
-      if ((included?.contains('id')??true) && !(excluded?.contains('id')??false)) 'id': id,
-      if ((included?.contains('title')??true) && !(excluded?.contains('title')??false)) 'title': title,
-      if ((included?.contains('content')??true) && !(excluded?.contains('content')??false)) 'content': content,
-      if ((included?.contains('tags')??true) && !(excluded?.contains('tags')??false)) 'tags': tags,
+      if (myHelper.incExc('id', included, excluded)) 'id': id,
+      if (myHelper.incExc('title', included, excluded)) 'title': title,
+      if (myHelper.incExc('content', included, excluded)) 'content': content,
+      if (myHelper.incExc('tags', included, excluded)) 'tags': tags,
     };
   }
 
@@ -52,12 +52,12 @@ class SampleObject extends FedObject {
   Future _createTable(Database db, int newVersion) async {
     bool bExisted = await FedDBManager.isTableExists(
       db,
-      objectHelper.tableName,
+      myHelper.tableName,
     );
 
     if (!bExisted) {
       await db.execute('''
-      CREATE TABLE ${objectHelper.tableName} (
+      CREATE TABLE ${myHelper.tableName} (
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
         content TEXT NOT NULL,

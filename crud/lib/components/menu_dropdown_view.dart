@@ -32,23 +32,13 @@ class MenuDropdownView extends FedView {
         MenuItemButton(
           leadingIcon: const Icon(Icons.account_circle_outlined),
           onPressed: processor.onHome,
-          child: const Text('Trung tâm tin nhắn'),
-        ),
-        MenuItemButton(
-          leadingIcon: const Icon(Icons.dashboard_outlined),
-          onPressed: processor.onDone,
-          child: const Text('Tin nhắn đã xử lý'),
-        ),
-        MenuItemButton(
-          leadingIcon: const Icon(Icons.notifications_outlined),
-          onPressed: processor.onSettings,
-          child: const Text('Cài đặt'),
+          child: const Text('Home'),
         ),
         const Divider(), // Clean Material 3 visual separator
         MenuItemButton(
           leadingIcon: const Icon(Icons.logout, color: Colors.red),
           onPressed: processor.onLogout,
-          child: const Text('Đăng xuất', style: TextStyle(color: Colors.red)),
+          child: const Text('Logout', style: TextStyle(color: Colors.red)),
         ),
       ],
     );

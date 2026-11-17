@@ -21,8 +21,7 @@ class DBManager extends FedDBManager {
     }
 
     // add model classes into the database
-    DBManager.defaultDb.addModel(User.helper);
-    DBManager.defaultDb.addModel(AppSetting.helper);
-    DBManager.defaultDb.addModel(SampleObject.helper);
+    DBManager.defaultDb.addModel(User.gHelper);
+    DBManager.defaultDb.addModel(SampleObject.gHelper);
   }
 }

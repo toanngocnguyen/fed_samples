@@ -33,6 +33,10 @@ class LoginView extends FedView {
                   ],
                 ),
                 const SizedBox(height: 120.0),
+                if (!(viewCode.errorMessage?.isEmpty ?? true)) ...[
+                  Text(viewCode.errorMessage!, style: TextStyle(color: Colors.red),),
+                  const SizedBox(height: 16.0),
+                ],
                 // [Name]
                 TextFormField(
                   decoration: const InputDecoration(

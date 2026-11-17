@@ -16,16 +16,6 @@ class MenuDropdownCode extends FedViewCode {
     Root.loadPage('/home');
   }
 
-  void onDone() {
-    // debugPrint('Menu Messages Sent Press');
-    Root.loadPage('/done');
-  }
-
-  void onSettings() {
-    // debugPrint('Menu Settings Press');
-    Root.loadPage('/settings');
-  }
-
   void onLogout() {
     // debugPrint('Menu Logout Press');
     Authentication().logout();

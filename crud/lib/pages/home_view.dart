@@ -135,10 +135,11 @@ class HomeView extends FedView {
       floatingActionButton: OverflowBar(
         alignment: MainAxisAlignment.center,
         children: <Widget>[
-          FloatingActionButton(
+          FloatingActionButton.extended (
             onPressed: viewCode.onTest,
             tooltip: 'Generate test data',
-            child: const Text('Generate test data'),
+            label: const Text('Generate test data'),
+
           ),
           const SizedBox(width: 12),
           FloatingActionButton(

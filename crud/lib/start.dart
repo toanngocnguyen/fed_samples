@@ -21,11 +21,8 @@ class Start {
     var loginPage = FedPage(LoginCode());
     var homePage = FedPage(HomeCode());
     var sampleObjectEditPage = FedPage(SampleObjectEditCode());
-    var settingsPage = FedPage(SettingsCode());
 
     Root.addPage('/login', loginPage);
-    Root.addPage('/settings', settingsPage);
-
     Root.addPage('/', homePage);
     Root.addPage('/home', homePage);
     Root.addPage('/sampleobject/edit', sampleObjectEditPage);

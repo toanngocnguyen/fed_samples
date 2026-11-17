@@ -52,6 +52,7 @@ class SampleObjectEditCode extends FedViewCode {
                 ),
               );
             }
+            return error.toString();
           });
     }
   }
