@@ -1,4 +1,5 @@
 import 'package:fedfer/model.dart';
+
 import 'db_manager.dart';
 
 class SampleObject extends FedObject {
@@ -12,7 +13,7 @@ class SampleObject extends FedObject {
     this.title,
     this.content,
     this.tags,
-  }) : super(myHelper: myHelper ?? SampleObject.gHelper);
+  }) : super(iHelper: myHelper ?? SampleObject.gHelper);
 
   static FedObjectHelper<SampleObject> gHelper = FedObjectHelper.makeHelper(
     createNew: (FedObjectHelper helper) => SampleObject(myHelper: helper),
@@ -23,10 +24,10 @@ class SampleObject extends FedObject {
   @override
   Map<String, dynamic> toMap({Set<String>? included, Set<String>? excluded}) {
     return {
-      if (myHelper.incExc('id', included, excluded)) 'id': id,
-      if (myHelper.incExc('title', included, excluded)) 'title': title,
-      if (myHelper.incExc('content', included, excluded)) 'content': content,
-      if (myHelper.incExc('tags', included, excluded)) 'tags': tags,
+      if (iHelper.incExc('id', included, excluded)) 'id': id,
+      if (iHelper.incExc('title', included, excluded)) 'title': title,
+      if (iHelper.incExc('content', included, excluded)) 'content': content,
+      if (iHelper.incExc('tags', included, excluded)) 'tags': tags,
     };
   }
 
@@ -50,14 +51,11 @@ class SampleObject extends FedObject {
   }
 
   Future _createTable(Database db, int newVersion) async {
-    bool bExisted = await FedDBManager.isTableExists(
-      db,
-      myHelper.tableName,
-    );
+    bool bExisted = await FedDBManager.isTableExists(db, iHelper.tableName);
 
     if (!bExisted) {
       await db.execute('''
-      CREATE TABLE ${myHelper.tableName} (
+      CREATE TABLE ${iHelper.tableName} (
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
         content TEXT NOT NULL,

@@ -6,6 +6,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 // import 'package:intl/intl.dart';
 
 import 'package:fedfer/view.dart';
+
 import 'home_code.dart';
 import '../model/sample_object.dart';
 
@@ -19,7 +20,7 @@ class HomeView extends FedView {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        leading: Root.components['menu_drop_down']?.widget,
+        leading: Root.elements['menu_drop_down']?.widget,
         title: Text('Available sample objects'),
       ),
       // Implement ListView.builder for dynamic and performant lists
@@ -33,8 +34,9 @@ class HomeView extends FedView {
         ),
         (false, final Exception e) => Text('Error: $e'),
         (false, null) => ListView.builder(
-          itemCount:
-              viewCode.sampleObjects.length, // Dictates how many items to render
+          itemCount: viewCode
+              .sampleObjects
+              .length, // Dictates how many items to render
           padding: const EdgeInsets.all(12.0),
           itemBuilder: (context, index) {
             if (index >= viewCode.sampleObjects.length) return null;
@@ -135,11 +137,10 @@ class HomeView extends FedView {
       floatingActionButton: OverflowBar(
         alignment: MainAxisAlignment.center,
         children: <Widget>[
-          FloatingActionButton.extended (
+          FloatingActionButton.extended(
             onPressed: viewCode.onTest,
             tooltip: 'Generate test data',
             label: const Text('Generate test data'),
-
           ),
           const SizedBox(width: 12),
           FloatingActionButton(

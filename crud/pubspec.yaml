@@ -46,7 +46,7 @@ dependencies:
   #flutter_secure_storage:
   #google_sign_in:
   #jwt_decoder:
-  web:
+  # web:
 
 dev_dependencies:
   flutter_test:

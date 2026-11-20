@@ -6,12 +6,16 @@ plugins {
 
 android {
     namespace = "com.example.crud"
-    compileSdk = flutter.compileSdkVersion
+    //compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+      // 💡 Flag to enable support for modern Java APIs
+      isCoreLibraryDesugaringEnabled = true
+
+      sourceCompatibility = JavaVersion.VERSION_17
+      targetCompatibility = JavaVersion.VERSION_17
     }
 
     defaultConfig {
@@ -46,4 +50,9 @@ kotlin {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+  // This tells Gradle exactly what engine library to use for desugaring
+  coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }

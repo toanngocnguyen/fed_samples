@@ -13,9 +13,9 @@ class Start {
 
     // define view-shared components
     // global menu
-    var menuDropDown =FedComponent(MenuDropdownCode());
+    var menuDropDown = FedElement(MenuDropdownCode());
 
-    Root.components['menu_drop_down'] = menuDropDown;
+    Root.elements['menu_drop_down'] = menuDropDown;
 
     // define pages
     var loginPage = FedPage(LoginCode());
@@ -30,11 +30,9 @@ class Start {
     // if there is an authenticated session, then restore it.
     Authentication().initializeSession();
 
-    if (Authentication().isLogined){
+    if (Authentication().isLogined) {
       Root.loadPage('/home');
-    }
-    else
-    {
+    } else {
       Root.loadPage('/login');
     }
 
