@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:fedfer/view.dart';
-import 'sample_object_edit_code.dart';
 
+import 'sample_object_edit_code.dart';
 
 class SampleObjectEditView extends FedView {
   const SampleObjectEditView({super.key, required super.code});
@@ -14,7 +14,7 @@ class SampleObjectEditView extends FedView {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        leading: Root.components['menu_drop_down']?.widget,
+        leading: Root.elements['menu_drop_down']?.widget,
         title: Text('Sample Object Edit'),
         actions: <Widget>[
           IconButton(
@@ -81,7 +81,8 @@ class SampleObjectEditView extends FedView {
                     alignLabelWithHint: true,
                     border: OutlineInputBorder(),
                   ),
-                  maxLines: 10, // Allows for a larger, multi-line paragraph input
+                  maxLines:
+                      10, // Allows for a larger, multi-line paragraph input
                   keyboardType: TextInputType.multiline,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
@@ -103,7 +104,10 @@ class SampleObjectEditView extends FedView {
                       icon: const Icon(Icons.cancel),
                       label: const Text('Cancel'),
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 16,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -113,7 +117,10 @@ class SampleObjectEditView extends FedView {
                       icon: const Icon(Icons.save),
                       label: const Text('Save'),
                       style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 16,
+                        ),
                       ),
                     ),
                   ],

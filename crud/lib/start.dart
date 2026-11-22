@@ -3,7 +3,7 @@ import 'package:fedfer/view.dart';
 import 'package:fed_auth/auth.dart';
 
 import './pages.dart';
-import './components.dart';
+import 'elements.dart';
 import './model.dart';
 
 class Start {

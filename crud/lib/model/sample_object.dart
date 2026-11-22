@@ -8,26 +8,27 @@ class SampleObject extends FedObject {
   String? tags;
 
   SampleObject({
-    FedObjectHelper? myHelper,
+    FedStorageService? myHelper,
     super.id,
     this.title,
     this.content,
     this.tags,
-  }) : super(iHelper: myHelper ?? SampleObject.gHelper);
+  }) : super(storage: myHelper ?? SampleObject.gHelper);
 
-  static FedObjectHelper<SampleObject> gHelper = FedObjectHelper.makeHelper(
-    createNew: (FedObjectHelper helper) => SampleObject(myHelper: helper),
-    tableName: 'sample_object',
-    dbManager: DBManager.defaultDb,
-  );
+  static FedStorageService<SampleObject> gHelper =
+      FedStorageService.makeStorageService(
+        createNew: (FedStorageService helper) => SampleObject(myHelper: helper),
+        tableName: 'sample_object',
+        dbManager: DBManager.defaultDb,
+      );
 
   @override
   Map<String, dynamic> toMap({Set<String>? included, Set<String>? excluded}) {
     return {
-      if (iHelper.incExc('id', included, excluded)) 'id': id,
-      if (iHelper.incExc('title', included, excluded)) 'title': title,
-      if (iHelper.incExc('content', included, excluded)) 'content': content,
-      if (iHelper.incExc('tags', included, excluded)) 'tags': tags,
+      if (storage.incExc('id', included, excluded)) 'id': id,
+      if (storage.incExc('title', included, excluded)) 'title': title,
+      if (storage.incExc('content', included, excluded)) 'content': content,
+      if (storage.incExc('tags', included, excluded)) 'tags': tags,
     };
   }
 
@@ -51,11 +52,11 @@ class SampleObject extends FedObject {
   }
 
   Future _createTable(Database db, int newVersion) async {
-    bool bExisted = await FedDBManager.isTableExists(db, iHelper.tableName);
+    bool bExisted = await FedDBManager.isTableExists(db, storage.tableName);
 
     if (!bExisted) {
       await db.execute('''
-      CREATE TABLE ${iHelper.tableName} (
+      CREATE TABLE ${storage.tableName} (
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
         content TEXT NOT NULL,
