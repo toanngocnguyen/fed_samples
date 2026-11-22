@@ -15,11 +15,11 @@ class HomeCode extends FedViewCode {
   late List<FedObject> sampleObjects;
 
   Future<void> loadPreviousData() async {
-    sampleObjects = await FedObject.getList(SampleObject.gHelper);
+    sampleObjects = await FedObject.getList(SampleObject.modelHelper);
   }
 
   Future<void> loadNextData() async {
-    sampleObjects = await FedObject.getList(SampleObject.gHelper);
+    sampleObjects = await FedObject.getList(SampleObject.modelHelper);
   }
 
   @override
@@ -49,7 +49,8 @@ class HomeCode extends FedViewCode {
     );
     if (id == null || id == '') return;
 
-    SampleObject.gHelper.delete(id)
+    SampleObject.modelHelper
+        .delete(id)
         .then((_) {
           loadNextData().then((value) {
             if (context.mounted) {
@@ -72,7 +73,7 @@ class HomeCode extends FedViewCode {
   Future<void> onDeleteItemDismissible(BuildContext context, String? id) async {
     if (id == null || id == '') return;
 
-    await FedObject.delete(SampleObject.gHelper, id);
+    await FedObject.delete(SampleObject.modelHelper, id);
     await loadNextData();
   }
 

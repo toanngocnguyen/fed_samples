@@ -8,16 +8,16 @@ class SampleObject extends FedObject {
   String? tags;
 
   SampleObject({
-    FedStorageService? myHelper,
+    FedModelHelper? model,
     super.id,
     this.title,
     this.content,
     this.tags,
-  }) : super(storage: myHelper ?? SampleObject.gHelper);
+  }) : super(model: model ?? SampleObject.modelHelper);
 
-  static FedStorageService<SampleObject> gHelper =
-      FedStorageService.makeStorageService(
-        createNew: (FedStorageService helper) => SampleObject(myHelper: helper),
+  static FedModelHelper<SampleObject> modelHelper =
+      FedModelHelper.makeModelHelper(
+        createNew: (FedModelHelper helper) => SampleObject(model: helper),
         tableName: 'sample_object',
         dbManager: DBManager.defaultDb,
       );
@@ -25,10 +25,10 @@ class SampleObject extends FedObject {
   @override
   Map<String, dynamic> toMap({Set<String>? included, Set<String>? excluded}) {
     return {
-      if (storage.incExc('id', included, excluded)) 'id': id,
-      if (storage.incExc('title', included, excluded)) 'title': title,
-      if (storage.incExc('content', included, excluded)) 'content': content,
-      if (storage.incExc('tags', included, excluded)) 'tags': tags,
+      if (model.incExc('id', included, excluded)) 'id': id,
+      if (model.incExc('title', included, excluded)) 'title': title,
+      if (model.incExc('content', included, excluded)) 'content': content,
+      if (model.incExc('tags', included, excluded)) 'tags': tags,
     };
   }
 
@@ -52,11 +52,11 @@ class SampleObject extends FedObject {
   }
 
   Future _createTable(Database db, int newVersion) async {
-    bool bExisted = await FedDBManager.isTableExists(db, storage.tableName);
+    bool bExisted = await FedDBManager.isTableExists(db, model.tableName);
 
     if (!bExisted) {
       await db.execute('''
-      CREATE TABLE ${storage.tableName} (
+      CREATE TABLE ${model.tableName} (
         id TEXT PRIMARY KEY,
         title TEXT NOT NULL,
         content TEXT NOT NULL,
